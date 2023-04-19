@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import {getDatabase, ref, push, onValue} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import {getDatabase, ref, push, onValue, remove} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
   databaseURL: "https://shopping-list-7d768-default-rtdb.firebaseio.com/",
@@ -8,7 +8,6 @@ const appSettings = {
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const itemsInListDB = ref(database, "items")
-const booksInDB = ref(database, "books")
 
 
 const itemInput = document.getElementById("item-input");
@@ -22,7 +21,13 @@ const appendListToPage = (newItem) => {
 
   list.appendChild(li)
 
-  li.addEventListener("click", (e) => {console.log(e.target.dataset["id"])})
+  li.addEventListener("dblclick", (e) => {
+    let itemId = e.target.dataset["id"]
+
+    let itemLocation = ref(database, `items/${itemId}`)
+
+    remove(itemLocation)
+  })
 }
 
 const clearField = () => {
