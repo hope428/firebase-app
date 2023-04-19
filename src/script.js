@@ -16,8 +16,13 @@ const addBtn = document.getElementById("add-btn");
 
 const appendListToPage = (newItem) => {
   const list = document.getElementById("list")
+  const li = document.createElement("li")
+  li.setAttribute("data-id", newItem[0])
+  li.textContent = newItem[1]
 
-  list.innerHTML += `<li>${newItem}</li>`
+  list.appendChild(li)
+
+  li.addEventListener("click", (e) => {console.log(e.target.dataset["id"])})
 }
 
 const clearField = () => {
@@ -26,7 +31,8 @@ const clearField = () => {
 
 // const getItemsInDB = () => {
   onValue(itemsInListDB, function(snapshot){
-    let items = Object.values(snapshot.val())
+    let items = Object.entries(snapshot.val())
+    console.log(items);
     clearList()
     items.forEach((item) => {appendListToPage(item)})
   })
