@@ -24,13 +24,13 @@ const clearField = () => {
   itemInput.value = ""
 }
 
-const getItemsInDB = () => {
+// const getItemsInDB = () => {
   onValue(itemsInListDB, function(snapshot){
     let items = Object.values(snapshot.val())
     clearList()
     items.forEach((item) => {appendListToPage(item)})
   })
-}
+// }
 
 const clearList = () => {
   list.innerHTML = ""
@@ -45,7 +45,7 @@ const addToCart = (e) => {
   clearField()
 };
 
-getItemsInDB()
+// getItemsInDB()
 
 addBtn.addEventListener("click", addToCart);
 
