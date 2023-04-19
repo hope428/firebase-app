@@ -11,9 +11,18 @@ const itemsInListDB = ref(database, "items")
 
 
 const itemInput = document.getElementById("item-input");
-const list = [];
 const addBtn = document.getElementById("add-btn");
-const listField = document.getElementById("list");
+
+const appendListToPage = (newItem) => {
+  const list = document.getElementById("list")
+
+  
+  list.innerHTML += `<li>${newItem}</li>`
+}
+
+const clearField = () => {
+  itemInput.value = ""
+}
 
 const addToCart = (e) => {
   e.preventDefault();
@@ -21,6 +30,8 @@ const addToCart = (e) => {
   const newItem = itemInput.value;
   push(itemsInListDB, newItem)
   
+  clearField()
+  appendListToPage(newItem)
 };
 
 addBtn.addEventListener("click", addToCart);
